@@ -14,6 +14,7 @@ char mon[12][4] = {"Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep"
 DHT dht(DHTPIN, DHTTYPE);
 
 char hum[5], temp[5];
+int light, bright = 80;
 
 void setup() {
   Serial.begin(9600);
@@ -30,10 +31,15 @@ void setup() {
   }
 
   //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+
+  pinMode(3, OUTPUT);
 }
 
 void loop() {
   delay(2000);
+
+  light = analogRead(A0);
+  analogWrite(3,bright);
 
   DateTime now = rtc.now();
 
@@ -49,5 +55,6 @@ void loop() {
 
   Serial.println(linha1);
   Serial.println(linha2);
+  Serial.println(light);
   delay(5000);
 }
